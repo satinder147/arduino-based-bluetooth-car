@@ -1,0 +1,102 @@
+/*
+ * THIS CODE IS FREE TO USE 
+ Hello everybody this is the coed for my arduino based bluetooth robot 
+ it is a very simple project and you can make it easily within a couple of hours if you are new to the arduino IDE
+ the code although is self explanatory but i have commented it also so you can refer the comments as well
+
+
+ the connections are as follows :
+ vcc 5v on arduino                      ---> vcc on bluetooth module
+ gnd(ground) on arduino                 ---> gnd on bluetooth module
+ RX pin on arduino                      ---> TX pin on bluetooth module
+ TX pin on arduino                      ---> RX pin on bluetooth module
+ digital pin 8,12,6,4,7,5 on arduino    ---> 8,12,6,4,7,5 on motor shield
+ vcc 5v from arduino                    ---> 5v on motor shield
+ gnd from arduino                       ---> gnd on motor shield
+ vin from arduino                       ---> vin on motor shield
+
+ for the video and making tutorial you can watch this video on the youtube channel 'reactor science' (https://www.youtube.com/channel/UCVu2Ie45Bh89lpdg7ezdMyg)
+
+                     *********     VERY IMPORTANT     **********
+      ***** REMOVE THE TX AND RX PIN FROM ARDUINO BEFORE UPLOADING THE CODE   ******
+ 
+ */
+
+
+char x;                     //declaring variable x
+void setup() {
+  Serial.begin(9600);
+                           // put your setup code here, to run once:
+
+pinMode(8,OUTPUT);         //declaring pins 8,12,6,7,4,5 and setting their pinmode as output
+pinMode(12,OUTPUT);
+pinMode(6,OUTPUT);
+pinMode(7,OUTPUT);
+pinMode(4,OUTPUT);
+pinMode(5,OUTPUT);
+digitalWrite(5,HIGH);
+digitalWrite(6,HIGH);
+}
+
+void loop() {
+                                           // put your main code here, to run repeatedly:
+  if(Serial.available()>0){                //checking if the serial input is receiving anything
+     x=Serial.read();                      //if it is receiving then the received value is stored in x
+     Serial.println(x);
+     switch(x){                            //using switch having variable x
+      case 'F':                            //if 'F' is received from the serial
+      forward();                           // then forward() function is called
+      break;          
+      case'B':                             //if 'B' is received from the serial 
+      backward();                          // then Backward() function is called
+      break;
+      case'L':                              //if 'L' is received from the serial
+      left();                               // then left() function is called
+      break;
+      case'R':                              //if 'R' is received from the serial
+      right();                              // then right() function is called
+      break;
+      case'X':
+      stops();
+      break;
+      case'x':
+      stops();
+      break;
+      }
+      }
+      }
+
+void forward()                           // the next four lines of code moves my robot forward 
+{
+  digitalWrite(8,HIGH);
+  digitalWrite(12,LOW);
+  digitalWrite(4,HIGH);
+  digitalWrite(7,LOW);
+}
+
+void backward()                           // the next four lines of code moves my robot backward
+{
+  digitalWrite(8,LOW);
+  digitalWrite(12,HIGH);
+  digitalWrite(4,LOW);
+  digitalWrite(7,HIGH);
+  }
+  void left(){                             // the next four lines of code moves my robot left
+  digitalWrite(8,HIGH);
+  digitalWrite(12,LOW);
+  digitalWrite(4,LOW);
+  digitalWrite(7,HIGH);
+}
+void right(){                               // the next four lines of code moves my robot right
+  digitalWrite(8,LOW);
+  digitalWrite(12,HIGH);
+  digitalWrite(4,HIGH);
+  digitalWrite(7,LOW);
+  }
+
+void stops(){                               // the next four lines of code stops the robot
+  digitalWrite(8,LOW);
+  digitalWrite(12,LOW);
+  digitalWrite(4,LOW);
+  digitalWrite(7,LOW);
+  }
